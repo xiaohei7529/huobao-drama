@@ -1,0 +1,90 @@
+{
+  "name": "huobao-drama",
+  "version": "0.1.0",
+  "description": "🔥 火爆短剧 - 聚合全网热门短剧，提供便捷的观看和管理体验",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:app && electron-builder",
+    "build:app": "vite build",
+    "build:win": "npm run build:app && electron-builder --win",
+    "build:mac": "npm run build:app && electron-builder --mac",
+    "build:linux": "npm run build:app && electron-builder --linux",
+    "pack": "electron-builder --dir",
+    "postinstall": "electron-builder install-app-deps",
+    "lint": "eslint . --ext .js,.ts,.vue",
+    "test": "vitest"
+  },
+  "keywords": [
+    "drama",
+    "short-drama",
+    "video",
+    "electron",
+    "desktop"
+  ],
+  "author": "xiaohei7529 <xiaohei7529@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.56.0",
+    "vite": "^5.0.0",
+    "vite-plugin-electron": "^0.28.0",
+    "vitest": "^1.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "element-plus": "^2.5.0",
+    "lowdb": "^7.0.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.5"
+  },
+  "build": {
+    "appId": "com.huobao.drama",
+    "productName": "火爆短剧",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "火爆短剧"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns",
+      "category": "public.app-category.entertainment"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        },
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.png",
+      "category": "Video"
+    }
+  }
+}

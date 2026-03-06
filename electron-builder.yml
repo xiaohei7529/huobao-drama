@@ -1,0 +1,46 @@
+appId: com.huobao.drama
+productName: 火爆短剧
+copyright: Copyright © 2026
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - dist/**/*
+  - package.json
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: 火爆短剧
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+
+mac:
+  target: dmg
+  icon: build/icon.icns
+  category: public.app-category.entertainment
+
+linux:
+  target:
+    - deb
+    - AppImage
+  icon: build/icon.png
+  category: Video
+  maintainer: xiaohei7529@gmail.com
+
+publish:
+  provider: github
+  owner: xiaohei7529
+  repo: huobao-drama
