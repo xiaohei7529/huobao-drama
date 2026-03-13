@@ -26,10 +26,15 @@
 
       <!-- 热门推荐 -->
       <div class="section">
-        <h2>🔥 热门推荐</h2>
+        <div class="section-header">
+          <h2>🔥 热门推荐</h2>
+          <el-button type="primary" @click="$router.push('/drama-list')">
+            查看更多 <el-icon><ArrowRight /></el-icon>
+          </el-button>
+        </div>
         <el-row :gutter="20">
           <el-col :span="6" v-for="drama in hotDramas" :key="drama.id">
-            <el-card shadow="hover" class="drama-card">
+            <el-card shadow="hover" class="drama-card" @click="$router.push('/drama-list')">
               <div class="drama-cover">{{ drama.cover }}</div>
               <div class="drama-info">
                 <h4>{{ drama.title }}</h4>
@@ -62,6 +67,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 
 const banners = ref([
   { id: 1, title: '热门短剧合集', desc: '全网最热短剧一网打尽', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
@@ -139,8 +145,15 @@ const newDramas = ref([
   box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 
-.section h2 {
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.section h2 {
+  margin: 0;
   color: #2c3e50;
 }
 

@@ -8,6 +8,12 @@ const routes = [
     meta: { title: '首页' }
   },
   {
+    path: '/drama-list',
+    name: 'DramaList',
+    component: () => import('@/views/DramaList.vue'),
+    meta: { title: '短剧列表' }
+  },
+  {
     path: '/search',
     name: 'Search',
     component: () => import('@/views/Search.vue'),
