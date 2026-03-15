@@ -4,7 +4,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-green)]()
-[![Version](https://img.shields.io/badge/version-0.1.0-orange)]()
+[![Version](https://img.shields.io/badge/version-0.2.0-orange)]()
 
 ---
 
@@ -30,7 +30,7 @@
 
 ```bash
 # 下载安装包
-huobao-drama-setup-0.1.0.exe
+huobao-drama-setup-0.2.0.exe
 
 # 或使用 winget
 winget install huobao-drama
@@ -43,72 +43,57 @@ winget install huobao-drama
 brew install --cask huobao-drama
 
 # 或下载 DMG 文件
-huobao-drama-0.1.0.dmg
+huobao-drama-0.2.0.dmg
 ```
 
 #### Linux
 
 ```bash
-# Debian/Ubuntu
-sudo apt install ./huobao-drama_0.1.0_amd64.deb
-
-# Fedora/RHEL
-sudo dnf install huobao-drama-0.1.0.x86_64.rpm
-
-# AppImage
-./huobao-drama-0.1.0.AppImage
+# 下载并安装
+wget https://github.com/xiaohei7529/huobao-drama/releases/download/v0.2.0/huobao-drama-0.2.0.AppImage
+chmod +x huobao-drama-0.2.0.AppImage
+./huobao-drama-0.2.0.AppImage
 ```
 
 ---
 
-## 📦 开发指南
+## 📊 开发状态
 
-### 环境要求
+**当前版本**: v0.2.0  
+**开发状态**: 🟢 开发中  
+**最后更新**: 2026-03-15
 
-- Node.js >= 18.0.0
-- npm >= 9.0.0
-- Git
+### 本周进展 (2026-03-09 至 2026-03-15)
 
-### 安装依赖
+**核心成就**:
+- ✅ 短剧列表页面开发完成
+- ✅ 网格/列表双视图实现
+- ✅ 短剧详情页开发完成
+- ✅ API 调研报告完成
+- ✅ 视频播放器选型完成
 
-```bash
-npm install
-```
+**Git 统计**:
+- 本周提交：20 次
+- 代码行数：1200+ 行
+- 文档数量：10 份
 
-### 启动开发服务器
+**已完成功能**:
+- ✅ 项目基础架构
+- ✅ Electron + Vue3 框架
+- ✅ 基础 UI 界面
+- ✅ 短剧列表页面 (筛选/排序/分页)
+- ✅ 短剧详情页面
+- ✅ 每日报告机制
 
-```bash
-npm run dev
-```
+**进行中**:
+- 🔄 播放器组件集成 (Video.js)
+- 🔄 API 数据对接
 
-### 构建生产版本
-
-```bash
-# 所有平台
-npm run build
-
-# Windows
-npm run build:win
-
-# macOS
-npm run build:mac
-
-# Linux
-npm run build:linux
-```
-
----
-
-## 🛠️ 技术栈
-
-| 类别 | 技术 |
-|------|------|
-| **框架** | Electron 28 + Vue 3 |
-| **语言** | TypeScript + JavaScript |
-| **UI** | Element Plus |
-| **状态管理** | Pinia |
-| **构建工具** | Vite + Electron-builder |
-| **数据库** | SQLite (lowdb) |
+**下周计划**:
+- [ ] Video.js 播放器集成
+- [ ] 短剧 API 对接
+- [ ] 收藏功能实现
+- [ ] 历史记录功能
 
 ---
 
@@ -116,68 +101,126 @@ npm run build:linux
 
 ```
 huobao-drama/
-├── src/                    # 源代码
-│   ├── main/               # 主进程
-│   ├── renderer/           # 渲染进程
-│   ├── preload/            # 预加载脚本
-│   └── utils/              # 工具函数
-├── public/                 # 静态资源
-├── build/                  # 构建配置
-├── dist/                   # 构建输出
-├── package.json            # 项目配置
-└── electron-builder.yml    # Electron 打包配置
+├── src/
+│   ├── main/           # Electron 主进程
+│   ├── preload/        # 预加载脚本
+│   └── renderer/       # Vue 渲染进程
+│       ├── views/      # 页面组件
+│       │   ├── Home.vue
+│       │   ├── DramaList.vue    # 短剧列表
+│       │   ├── DramaDetail.vue  # 短剧详情
+│       │   ├── Search.vue
+│       │   ├── Favorites.vue
+│       │   ├── History.vue
+│       │   └── Settings.vue
+│       └── router/     # 路由配置
+├── docs/               # 文档
+├── reports/            # 报告
+└── package.json        # 项目配置
 ```
 
 ---
 
-## 📋 开发计划
+## 🛠️ 技术栈
 
-### v0.1.0 (当前版本)
-- [x] 项目基础架构
-- [x] Windows 打包支持
-- [ ] 基础 UI 界面
-- [ ] 短剧列表展示
+### 桌面应用
+- **框架**: Electron 28.0
+- **前端**: Vue 3.4 + Element Plus 2.5
+- **构建**: Vite 5.0
+- **打包**: electron-builder
 
-### v0.2.0
-- [ ] 短剧搜索功能
-- [ ] 播放历史记录
-- [ ] 收藏功能
+### 播放器
+- **推荐**: Video.js (选型完成)
+- **备选**: DPlayer, XGPlayer
 
-### v0.3.0
-- [ ] 智能推荐系统
-- [ ] 更新通知
-- [ ] 多平台同步
+### 状态管理
+- **Pinia** 2.1
 
-### v1.0.0
-- [ ] 完整功能
-- [ ] 性能优化
-- [ ] 正式发布
+---
+
+## 📖 文档导航
+
+| 文档 | 说明 |
+|------|------|
+| [开发指南](DEVELOPMENT.md) | 开发环境配置 |
+| [短剧列表功能](docs/drama-list-feature.md) | 列表页面功能说明 |
+| [API 调研](docs/api-research.md) | 短剧 API 调研报告 |
+| [播放器选型](docs/player-selection.md) | 播放器选型报告 |
+| [路线图](ROADMAP.md) | 项目发展规划 |
+
+---
+
+## 🎬 页面功能
+
+### 首页
+- 轮播图推荐
+- 热门推荐
+- 最新更新
+
+### 短剧列表
+- 网格/列表视图切换
+- 分类筛选 (都市/言情/逆袭等)
+- 状态筛选 (连载中/已完结)
+- 排序 (热门/最新/评分)
+- 关键词搜索
+- 分页功能
+
+### 短剧详情
+- 短剧信息展示
+- 剧集列表
+- 视频播放
+- 收藏功能
+
+### 搜索
+- 关键词搜索
+- 高级筛选
+
+### 收藏
+- 收藏列表
+- 批量管理
+
+### 历史
+- 观看历史
+- 继续观看
 
 ---
 
 ## 🤝 贡献指南
 
-欢迎提交 Issue 和 Pull Request！
+欢迎贡献代码、文档或建议！
 
 1. Fork 本项目
 2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+3. 提交变更 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
+5. 提交 Pull Request
 
 ---
 
 ## 📄 开源协议
 
-MIT License
+本项目采用 MIT 协议开源 - 查看 [LICENSE](LICENSE) 文件了解详情。
+
+---
+
+## 🙏 致谢
+
+感谢以下开源项目：
+- [Electron](https://www.electronjs.org/)
+- [Vue.js](https://vuejs.org/)
+- [Element Plus](https://element-plus.org/)
+- [Video.js](https://videojs.com/)
 
 ---
 
 ## 📞 联系方式
 
-- **Issues**: [GitHub Issues](https://github.com/xiaohei7529/huobao-drama/issues)
+- **GitHub**: https://github.com/xiaohei7529/huobao-drama
+- **Issues**: https://github.com/xiaohei7529/huobao-drama/issues
 - **Email**: xiaohei7529@gmail.com
 
 ---
 
-**Made with ❤️ by Huobao Team**
+*Huobao Drama v0.2.0 - 聚合全网热门短剧！* 🎬
+
+**最后更新**: 2026-03-15
