@@ -14,6 +14,12 @@ const routes = [
     meta: { title: '短剧列表' }
   },
   {
+    path: '/drama/:id',
+    name: 'DramaDetail',
+    component: () => import('@/views/DramaDetail.vue'),
+    meta: { title: '短剧详情' }
+  },
+  {
     path: '/search',
     name: 'Search',
     component: () => import('@/views/Search.vue'),
