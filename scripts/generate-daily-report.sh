@@ -2,7 +2,7 @@
 # 每日开发报告生成脚本
 # 执行时间：每日 21:00
 
-WORKSPACE="/home/feng/huobao-drama"
+WORKSPACE="/home/feng/openclaw-projects/huobao-drama"
 REPORTS_DIR="$WORKSPACE/reports"
 DATE=$(date +%Y-%m-%d)
 REPORT_FILE="$REPORTS_DIR/daily-$DATE.md"
