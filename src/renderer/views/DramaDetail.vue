@@ -32,6 +32,25 @@
       </div>
     </div>
 
+    <!-- 播放器 -->
+    <div class="player-section" v-if="isPlaying">
+      <h3>正在播放：第{{ currentEpisode }}集</h3>
+      <div class="video-container">
+        <video 
+          ref="videoPlayer" 
+          class="video-js vjs-default-skin vjs-big-play-centered"
+          controls
+          preload="auto"
+          :poster="drama.cover"
+        >
+          <source :src="currentPlayUrl" type="video/mp4" />
+          <p class="vjs-no-js">
+            您的浏览器不支持视频播放，请升级浏览器
+          </p>
+        </video>
+      </div>
+    </div>
+
     <!-- 剧集列表 -->
     <div class="episodes-section">
       <h3>剧集列表 ({{ episodes.length }}集)</h3>
@@ -50,27 +69,20 @@
         </el-col>
       </el-row>
     </div>
-
-    <!-- 播放器 -->
-    <div class="player-section" v-if="isPlaying">
-      <h3>正在播放：第{{ currentEpisode }}集</h3>
-      <div class="video-player">
-        <video ref="videoPlayer" controls class="video-js">
-          <source :src="currentPlayUrl" type="video/mp4" />
-          您的浏览器不支持视频播放
-        </video>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ArrowLeft, VideoPlay, Star } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import videojs from 'video.js'
+import 'video.js/dist/video-js.css'
 
 const route = useRoute()
+const videoPlayer = ref(null)
+let player = null
 
 // 短剧数据 (模拟)
 const drama = reactive({
@@ -101,19 +113,51 @@ const isPlaying = ref(false)
 const currentEpisode = ref(1)
 const currentPlayUrl = ref('')
 
+// 初始化播放器
+onMounted(() => {
+  if (videoPlayer.value && !player) {
+    player = videojs(videoPlayer.value, {
+      autoplay: false,
+      controls: true,
+      responsive: true,
+      fluid: true,
+      playbackRates: [0.5, 1.0, 1.5, 2.0],
+      language: 'zh-CN'
+    })
+  }
+})
+
+// 清理播放器
+onUnmounted(() => {
+  if (player) {
+    player.dispose()
+  }
+})
+
 // 播放短剧
 const playDrama = () => {
   isPlaying.value = true
   currentPlayUrl.value = episodes.value[currentEpisode.value - 1].url
+  
+  // 使用 Video.js 播放
+  if (player) {
+    player.src({ type: 'video/mp4', src: currentPlayUrl.value })
+    player.play()
+  }
+  
   ElMessage.success(`开始播放第${currentEpisode.value}集`)
 }
 
 // 选择剧集
 const selectEpisode = (epId) => {
   currentEpisode.value = epId
-  if (isPlaying.value) {
+  
+  if (isPlaying.value && player) {
     currentPlayUrl.value = episodes.value[epId - 1].url
+    player.src({ type: 'video/mp4', src: currentPlayUrl.value })
+    player.play()
   }
+  
   ElMessage.info(`已选择第${epId}集`)
 }
 
@@ -196,11 +240,33 @@ const toggleFavorite = () => {
   gap: 15px;
 }
 
-.episodes-section {
+.player-section {
   background: white;
   padding: 30px;
   border-radius: 10px;
   margin-bottom: 30px;
+}
+
+.player-section h3 {
+  margin: 0 0 20px 0;
+  color: #303133;
+}
+
+.video-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.video-js {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.episodes-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
 }
 
 .episodes-section h3 {
@@ -241,29 +307,5 @@ const toggleFavorite = () => {
 .ep-duration {
   font-size: 11px;
   color: #909399;
-}
-
-.player-section {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-}
-
-.player-section h3 {
-  margin: 0 0 20px 0;
-  color: #303133;
-}
-
-.video-player {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.video-js {
-  width: 100%;
-  height: 500px;
-  background: #000;
-  border-radius: 10px;
 }
 </style>
